@@ -67,54 +67,55 @@ var profile = {
 };
 
 $("#machine_id").on("input", function() {
-	profile.id = $("#machine_id").val();
+    profile.id = $("#machine_id").val();
 });
 
 $("#machine_name").on("input", function() {
-	profile.name = $("#machine_name").val();
+    profile.name = $("#machine_name").val();
 });
 
 $("#machine_width").on("input", function() {
-	profile.machine_settings.machine_width.default = parseInt($("#machine_width").val());
+    profile.machine_settings.machine_width.default = parseInt($("#machine_width").val());
 });
 
 $("#machine_depth").on("input", function() {
-	profile.machine_settings.machine_depth.default = parseInt($("#machine_depth").val());
+    profile.machine_settings.machine_depth.default = parseInt($("#machine_depth").val());
 });
 
 $("#machine_height").on("input", function() {
-	profile.machine_settings.machine_height.default = parseInt($("#machine_height").val());
+    profile.machine_settings.machine_height.default = parseInt($("#machine_height").val());
 });
 
 $("#machine_nozzle_orifice").on("input", function() {
-	profile.machine_settings.machine_nozzle_size.default = parseFloat($("#machine_nozzle_orifice").val());
+    profile.machine_settings.machine_nozzle_size.default = parseFloat($("#machine_nozzle_orifice").val());
 });
 
 $("#heated_bed").on("change", function() {
-	profile.categories.material.settings.material_bed_temperature.visible = $("#heated_bed").prop("checked");
+    profile.categories.material.settings.material_bed_temperature.visible = $("#heated_bed").prop("checked");
 });
 
 $("#machine_center_is_zero").on("change", function() {
-	profile.machine_settings.machine_center_is_zero.default = $("#machine_center_is_zero").prop("checked");
+    profile.machine_settings.machine_center_is_zero.default = $("#machine_center_is_zero").prop("checked");
 });
 
 $("#start_gcode").on("input", function() {
-	profile.machine_settings.machine_start_gcode.default = $("#start_gcode").val();
+    profile.machine_settings.machine_start_gcode.default = $("#start_gcode").val();
 });
 
 $("#end_gcode").on("input", function() {
-	profile.machine_settings.machine_end_gcode.default = $("#end_gcode").val();
+    profile.machine_settings.machine_end_gcode.default = $("#end_gcode").val();
 });
 
 function updateProfileView() {
-	$("#profile_preview").text(JSON.stringify(profile));
+    $("#profile_preview").text(JSON.stringify(profile));
 }
 
 $("#generate_btn").click(function() {
-	updateProfileView();
-	document.getElementById("profile_preview").style.visibility = "visible";
-	document.getElementById("instruction").style.visibility = "visible";
+    updateProfileView();
+    document.getElementById("profile_preview").style.visibility = "visible";
+    document.getElementById("instruction").style.visibility = "visible";
 });
 
+// Initially hide the profile preview and instructions
 document.getElementById("profile_preview").style.visibility = "hidden";
 document.getElementById("instruction").style.visibility = "hidden";
