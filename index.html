@@ -2,14 +2,15 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <title>Cura Profile Maker</title>
-        <link rel="stylesheet" href="css/styles.css?v=1.0">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+		<title>Cura Profile Maker</title>
+		<link rel="stylesheet" href="css/styles.css?v=1.0">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+		<link rel="stylesheet" href="style.css">
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
         <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
     </head>
     <body>
-        <h1 style="text-align: center;">Cura Profile Maker</h1>
+        <h1>Cura Profile Maker</h1>
         <div class="alert alert-warning alert-dismissible" role="alert">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             <strong>Warning!</strong> Check <a href="https://github.com/Ultimaker/Cura/tree/master/resources/settings">here</a> to make sure the profile you want hasn't already been created.
@@ -37,11 +38,11 @@
                 <div class="input-group">
                     <span class="input-group-addon">Machine Printable Area</span>
                     <input type="number" id="machine_width" class="form-control" value="200">
-                    <span class="input-group-addon">X</span>
+                    <span class="input-group-addon">X (Width)</span>
                     <input type="number" id="machine_depth" class="form-control" value="200">
-                    <span class="input-group-addon">Y</span>
+                    <span class="input-group-addon">Y (Depth)</span>
                     <input type="number" id="machine_height" class="form-control" value="200">
-                    <span class="input-group-addon">Z</span>
+                    <span class="input-group-addon">Z (Height)</span>
                 </div>
                 <div class="input-group">
                     <span class="input-group-addon">
@@ -61,15 +62,52 @@
                 </div>
             </div>
         </div>
+		
+		 <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Start/End Gcode</h3>
+            </div>
+            <div class="panel-body">
+				<div class="row">
+					<div class="col-md-6">
+						<p>Start Gcode</p>
+						<textarea id="start_gcode">G21 ;metric values
+						G90 ;absolute positioning
+						M82 ;set extruder to absolute mode
+						M107 ;start with the fan off\nG28 X0 Y0 ;move X/Y to min endstops
+						G28 Z0 ;move Z to min endstops
+						G1 Z15.0 F9000 ;move the platform down 15mm
+						G92 E0 ;zero the extruded length
+						G1 F200 E3 ;extrude 3mm of feed stock
+						G92 E0 ;zero the extruded length again
+						G1 F9000
+						;Put printing message on LCD screen
+						M117 Printing...</textarea>
+					</div>
+					
+					<div class="col-md-6">
+						<p>End Gcode</p>
+						<textarea id="end_gcode">M104 S0 ;extruder heater off
+						M140 S0 ;heated bed heater off (if you have it)
+						G91 ;relative positioning\nG1 E-1 F300  ;retract the filament a bit before lifting the nozzle, to release some of the pressure
+						G1 Z+0.5 E-5 X-20 Y-20 F9000 ;move Z up a bit and retract filament even more
+						G28 X0 Y0 ;move X/Y to min endstops, so the head is out of the way
+						M84 ;steppers off
+						G90 ;absolute positioning</textarea>
+					</div>
+				</div>
+            </div>
+        </div>
+		
         <button class="btn btn-primary" id="generate_btn">Generate</button>
         </br>
         <pre class="well" id="profile_preview"></pre>
-        <div class="alert alert-info" role="alert">Paste the above into a .json file and place it in resources/settings</div>
+        <div class="alert alert-info" id="instruction">Paste the above into a .json file and place it in resources/settings</div>
 
         <script>
 			var profile = {
-			  "id": "ultimaker_original",
-			  "name": "Ultimaker Original",
+			  "id": "",
+			  "name": "",
 			  "icon": "icon_ultimaker.png",
 			  "platform": "",
 			
@@ -156,8 +194,7 @@
 			});
 			
 			$("#machine_nozzle_orifice").on("input", function() {
-				profile.machine_settings.machine_nozzle_size.
-				default = parseFloat($("#machine_nozzle_orifice").val());
+				profile.machine_settings.machine_nozzle_size.default = parseFloat($("#machine_nozzle_orifice").val());
 			});
 			
 			$("#heated_bed").on("change", function() {
@@ -165,8 +202,15 @@
 			});
 			
 			$("#machine_center_is_zero").on("change", function() {
-				profile.machine_settings.machine_center_is_zero.
-				default = $("#machine_center_is_zero").prop("checked");
+				profile.machine_settings.machine_center_is_zero.default = $("#machine_center_is_zero").prop("checked");
+			});
+			
+			$("#start_gcode").on("input", function() {
+				profile.machine_settings.machine_start_gcode.default = $("#start_gcode").val();
+			});
+			
+			$("#end_gcode").on("input", function() {
+				profile.machine_settings.machine_end_gcode.default = $("#end_gcode").val();
 			});
 			
 			function updateProfileView() {
@@ -175,7 +219,12 @@
 			
 			$("#generate_btn").click(function() {
 				updateProfileView();
+				document.getElementById("profile_preview").style.visibility = "visible";
+				document.getElementById("instruction").style.visibility = "visible";
 			});
+			
+			document.getElementById("profile_preview").style.visibility = "hidden";
+			document.getElementById("instruction").style.visibility = "hidden";
         </script>
     </body>
 </html>

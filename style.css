@@ -1,0 +1,11 @@
+body {
+	padding: 1%;
+}
+
+h1 {
+	text-align: center;
+}
+textarea {
+	height: 150px;
+	width: 100%;
+}
