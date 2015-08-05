@@ -9,24 +9,23 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
         <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
     </head>
-    <body>
+    <body class="container">
         <h1>Cura Profile Maker</h1>
-        <div class="alert alert-warning alert-dismissible" role="alert">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <div class="alert alert-warning text-center" role="alert">
             <strong>Warning!</strong> Check <a href="https://github.com/Ultimaker/Cura/tree/master/resources/settings">here</a> to make sure the profile you want hasn't already been created.
         </div>
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3 class="panel-title">Machine Info</h3>
+                <h3 class="panel-title">Profile Info</h3>
             </div>
             <div class="panel-body">
                 <div class="input-group">
                     <span class="input-group-addon">Machine ID</span>
-                    <input type="text" id="machine_id" class="form-control" placeholder="unique ID">
+                    <input type="text" id="machine_id" class="form-control" placeholder="This should be a unique identifier, ex: 'prusia-i3', 'kossel-mini', etc.">
                 </div>
                 <div class="input-group">
                     <span class="input-group-addon">Machine Name</span>
-                    <input type="text" id="machine_name" class="form-control">
+                    <input type="text" id="machine_name" class="form-control" placeholder="A human friendly name, ex: 'Prusia i3', 'Kossel Mini', etc.">
                 </div>
             </div>
         </div>
@@ -35,30 +34,52 @@
                 <h3 class="panel-title">Machine Properties</h3>
             </div>
             <div class="panel-body">
-                <div class="input-group">
-                    <span class="input-group-addon">Machine Printable Area</span>
-                    <input type="number" id="machine_width" class="form-control" value="200">
-                    <span class="input-group-addon">X (Width)</span>
-                    <input type="number" id="machine_depth" class="form-control" value="200">
-                    <span class="input-group-addon">Y (Depth)</span>
-                    <input type="number" id="machine_height" class="form-control" value="200">
-                    <span class="input-group-addon">Z (Height)</span>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="input-group">
+                            <span class="input-group-addon">X (Width)</span>
+                            <input type="number" id="machine_width" class="form-control" value="200">
+                            <span class="input-group-addon">mm</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="input-group">
+                            <span class="input-group-addon">Y (Depth)</span>
+                            <input type="number" id="machine_depth" class="form-control" value="200">
+                            <span class="input-group-addon">mm</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="input-group">
+                            <span class="input-group-addon">Z (Height)</span>
+                            <input type="number" id="machine_height" class="form-control" value="200">
+                            <span class="input-group-addon">mm</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="input-group">
-                    <span class="input-group-addon">
-                    <input type="checkbox" id="machine_center_is_zero">
-                    </span>
-                    <span class="form-control">Machine Center is Zero</span>
-                </div>
-                <div class="input-group">
-                    <span class="input-group-addon">Nozzle Orifice</span>
-                    <input type="number" id="machine_nozzle_orifice" class="form-control" value="0.4">
-                </div>
-                <div class="input-group">
-                    <span class="input-group-addon">
-                    <input type="checkbox" id="heated_bed" checked>
-                    </span>
-                    <span class="form-control">Heated bed?</span>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" id="machine_center_is_zero"> Machine Center is Zero
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="checkbox">
+                            <label>
+
+                                <input type="checkbox" id="heated_bed" checked> Heated Bed
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="input-group">
+                            <span class="input-group-addon">Nozzle Orifice</span>
+                            <input type="number" id="machine_nozzle_orifice" class="form-control" value="0.4">
+                            <span class="input-group-addon">mm</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -71,7 +92,7 @@
                 <div class="row">
                     <div class="col-md-6">
                         <p>Start Gcode</p>
-                        <textarea id="start_gcode">
+                        <textarea id="start_gcode" class="form-control monospaced" rows="10">
 G21 ;metric values
 G90 ;absolute positioning
 M82 ;set extruder to absolute mode
@@ -89,7 +110,7 @@ M117 Printing...</textarea>
                     
                     <div class="col-md-6">
                         <p>End Gcode</p>
-                        <textarea id="end_gcode">
+                        <textarea id="end_gcode" class="form-control monospaced" rows="10">
 M104 S0 ;extruder heater off
 M140 S0 ;heated bed heater off (if you have it)
 G91 ;relative positioning
