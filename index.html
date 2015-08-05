@@ -3,11 +3,13 @@
     <head>
         <meta charset="utf-8">
         <title>Cura Profile Maker</title>
-        <link rel="stylesheet" href="css/styles.css?v=1.0">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
         <link rel="stylesheet" href="style.css">
         <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.7/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.7/languages/json.min.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.7/styles/github.min.css">
     </head>
     <body class="container">
         <h1>Cura Profile Maker</h1>
@@ -137,7 +139,7 @@ G90 ;absolute positioning
         </div>
         <button class="btn btn-primary" id="generate_btn">Generate</button>
 
-        <pre class="well" id="profile_preview"></pre>
+        <pre id="profile_preview"><code class="json"></code></pre>
         <div class="alert alert-info" id="instruction">Paste the above into a .json file and place it in resources/settings</div>
 
         <script src="index.js"></script>
