@@ -108,7 +108,8 @@ $("#end_gcode").on("input", function() {
 
 function updateProfileView() {
     var tabStop = parseInt($("#tab-stop").val());
-    $("#profile_preview").text(JSON.stringify(profile, null, tabStop));
+    $("#profile_preview code").text(JSON.stringify(profile, null, tabStop));
+    hljs.highlightBlock($("#profile_preview code")[0]);
 }
 
 $("#generate_btn").click(function() {
