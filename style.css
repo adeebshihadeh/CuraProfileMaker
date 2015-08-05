@@ -5,7 +5,41 @@ body {
 h1 {
     text-align: center;
 }
+
 textarea {
     height: 150px;
     width: 100%;
 }
+
+.input-group + .input-group {
+    margin-top: 10px;
+}
+
+.row + .row {
+    margin-top: 10px;
+}
+
+.monospaced {
+    font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+    font-size: 12px;
+}
+
+.tab-selection {
+    text-align: right;
+    width: 200px;
+}
+
+.tab-selection label {
+    display: inline-block;
+    margin-right: 5px;
+}
+
+.tab-selection select {
+    display: inline-block;
+    width: calc(100% - 100px);
+}
+
+#profile_preview {
+    margin-top: 20px;
+}
+
