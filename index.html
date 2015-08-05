@@ -6,8 +6,8 @@
         <link rel="stylesheet" href="css/styles.css?v=1.0">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
         <link rel="stylesheet" href="style.css">
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
         <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     </head>
     <body class="container">
         <h1>Cura Profile Maker</h1>
@@ -124,13 +124,22 @@ G90 ;absolute positioning
                 </div>
             </div>
         </div>
-        
+
+        <hr>
+
+        <div class="tab-selection pull-right">
+            <label for="tab-stop">Tab Stop</label>
+            <select id="tab-stop" class="form-control">
+                <option value="0">0</option>
+                <option value="2" selected>2</option>
+                <option value="4">4</option>
+            </select>
+        </div>
         <button class="btn btn-primary" id="generate_btn">Generate</button>
-        </br>
+
         <pre class="well" id="profile_preview"></pre>
         <div class="alert alert-info" id="instruction">Paste the above into a .json file and place it in resources/settings</div>
 
-        <script src="index.js">
-        </script>
+        <script src="index.js"></script>
     </body>
 </html>

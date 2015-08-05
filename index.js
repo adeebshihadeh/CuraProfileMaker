@@ -107,7 +107,8 @@ $("#end_gcode").on("input", function() {
 });
 
 function updateProfileView() {
-    $("#profile_preview").text(JSON.stringify(profile));
+    var tabStop = parseInt($("#tab-stop").val());
+    $("#profile_preview").text(JSON.stringify(profile, null, tabStop));
 }
 
 $("#generate_btn").click(function() {
