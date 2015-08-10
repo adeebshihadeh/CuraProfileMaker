@@ -66,44 +66,76 @@ var profile = {
   }
 };
 
+var liveUpdate = false;
+
 $("#machine_id").on("input", function() {
     profile.id = $("#machine_id").val();
+    if(liveUpdate){
+        updateProfileView();
+    }
 });
 
 $("#machine_name").on("input", function() {
     profile.name = $("#machine_name").val();
+    if(liveUpdate){
+        updateProfileView();
+    }
 });
 
 $("#machine_width").on("input", function() {
     profile.machine_settings.machine_width.default = parseInt($("#machine_width").val());
+    if(liveUpdate){
+        updateProfileView();
+    }
 });
 
 $("#machine_depth").on("input", function() {
     profile.machine_settings.machine_depth.default = parseInt($("#machine_depth").val());
+    if(liveUpdate){
+        updateProfileView();
+    }
 });
 
 $("#machine_height").on("input", function() {
     profile.machine_settings.machine_height.default = parseInt($("#machine_height").val());
+    if(liveUpdate){
+        updateProfileView();
+    }
 });
 
 $("#machine_nozzle_orifice").on("input", function() {
     profile.machine_settings.machine_nozzle_size.default = parseFloat($("#machine_nozzle_orifice").val());
+    if(liveUpdate){
+        updateProfileView();
+    }
 });
 
 $("#heated_bed").on("change", function() {
     profile.categories.material.settings.material_bed_temperature.visible = $("#heated_bed").prop("checked");
+    if(liveUpdate){
+        updateProfileView();
+    }
 });
 
 $("#machine_center_is_zero").on("change", function() {
     profile.machine_settings.machine_center_is_zero.default = $("#machine_center_is_zero").prop("checked");
+    if(liveUpdate){
+        updateProfileView();
+    }
 });
 
 $("#start_gcode").on("input", function() {
     profile.machine_settings.machine_start_gcode.default = $("#start_gcode").val();
+    if(liveUpdate){
+        updateProfileView();
+    }
 });
 
 $("#end_gcode").on("input", function() {
     profile.machine_settings.machine_end_gcode.default = $("#end_gcode").val();
+    if(liveUpdate){
+        updateProfileView();
+    }
 });
 
 function updateProfileView() {
@@ -116,8 +148,30 @@ $("#generate_btn").click(function() {
     updateProfileView();
     document.getElementById("profile_preview").style.visibility = "visible";
     document.getElementById("instruction").style.visibility = "visible";
+    
+    // enable the download button
+    $("#download_btn").removeClass("disabled");
+    
+    liveUpdate = true;
+    
+    // the genereate button is no longer needed
+    $("#generate_btn").fadeOut();
+    $("#download_btn").fadeIn();
 });
 
-// Initially hide the profile preview and instructions
+$("#download_btn").click(function() {
+    var json = JSON.stringify(profile, null, parseInt($("#tab-stop").val()));
+    var blob = new Blob([json], {type: "application/json"});
+    var url  = URL.createObjectURL(blob);
+
+    var a = document.createElement('a');
+    a.download    = $("#machine_id").val();
+    a.href        = url;
+    a.click();
+});
+
+
+// Initially hide the profile preview, instructions, and download button
 document.getElementById("profile_preview").style.visibility = "hidden";
 document.getElementById("instruction").style.visibility = "hidden";
+$("#download_btn").hide();
