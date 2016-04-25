@@ -1,8 +1,7 @@
 var profile = {
   "id": "",
   "name": "",
-  "icon": "icon_ultimaker.png",
-  "platform": "",
+  "version": 1,
 
   "inherits": "fdmprinter.json",
 
@@ -44,7 +43,7 @@ var profile = {
       "default": 0.0
     },
     "machine_gcode_flavor": {
-      "default": "RepRap (Marlin/Sprinter)"
+      "default": "RepRap"
     },
 
     "machine_start_gcode": {
